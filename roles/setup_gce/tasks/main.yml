@@ -1,0 +1,5 @@
+- import_tasks: swap.yml
+  tags: ['swap']
+
+- import_tasks: stackdriver-agent.yml
+  tags: ['stackdriver-agent']
