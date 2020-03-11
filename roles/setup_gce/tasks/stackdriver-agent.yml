@@ -3,6 +3,13 @@
     path: /etc/init.d/stackdriver-agent
   register: stackdriver_agent
 
+- name: install required packagers
+  become: yes
+  apt:
+    name:
+      - curl
+      - gnupg
+
 - name: download installer
   get_url:
     url: https://dl.google.com/cloudagents/install-monitoring-agent.sh
