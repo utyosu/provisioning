@@ -1,0 +1,27 @@
+# sudo apt install -y default-jre
+- name: install required packages
+  become: yes
+  apt:
+    name:
+      - gnupg
+      - default-jre
+
+# wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
+- name: add jenkins apt-key
+  become: yes
+  apt_key:
+    url: https://pkg.jenkins.io/debian/jenkins-ci.org.key
+
+# sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+- name: add jenkins repository
+  become: yes
+  apt_repository:
+    repo: deb http://pkg.jenkins.io/debian-stable binary/
+
+# sudo apt update
+# sudo apt install -y jenkins
+- name: install jenkins
+  become: yes
+  apt:
+    name:
+      - jenkins
