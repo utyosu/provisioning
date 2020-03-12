@@ -1,3 +1,10 @@
+- name: install required packages
+  become: yes
+  apt:
+    name:
+      - g++
+      - make
+
 - name: check libsodium
   shell: ldconfig -p | grep libsodium
   register: libsodium

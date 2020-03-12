@@ -1,0 +1,4 @@
+- name: set original bashrc
+  copy:
+    src: ../files/bashrc
+    dest: ~/.bashrc

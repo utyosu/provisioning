@@ -5,8 +5,9 @@
       - rbenv
       - libssl-dev
       - libreadline-dev
-      - gcc
+      - g++
       - make
+      - git
 
 - name: check ruby version
   shell: ruby --version | grep {{ ruby_version }}
@@ -33,11 +34,12 @@
 
 - name: setting for rbenv
   lineinfile:
-    path: ~/.extend_bashrc
+    path: ~/.ansible_preload
     line: eval "$(rbenv init -)"
     create: yes
 
 - name: gem update
+  become: yes
   shell: gem update --system
 
 - name: install bundler

@@ -5,6 +5,6 @@
 
 - name: load environment file when login
   lineinfile:
-    path: ~/.extend_bashrc
+    path: ~/.ansible_preload
     line: source ~/.production_env
     create: yes
