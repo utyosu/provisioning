@@ -1,0 +1,11 @@
+- name: nginx setting
+  become: yes
+  template:
+    src: ../files/nginx.conf
+    dest: /etc/nginx/conf.d/engineer_blog.conf
+  register: nginx_setting
+
+- name: reload nginx setting
+  become: yes
+  shell: nginx -s reload
+  when: nginx_setting is changed

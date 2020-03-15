@@ -1,0 +1,4 @@
+- hosts: all
+  roles:
+    - { role: mysql, tags: [mysql] }
+    - { role: engineer_blog, tags: [engineer_blog] }
