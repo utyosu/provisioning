@@ -4,14 +4,16 @@
     name:
       - nginx
 
-- name: nginx setting
+- name: add discord-recruitment-bot setting
   become: yes
   copy:
     src: ../files/discord-recruitment-bot.conf
     dest: /etc/nginx/conf.d/discord-recruitment-bot.conf
-  register: nginx_setting
+  notify: reload nginx setting
 
-- name: reload nginx setting
+- name: add engineer_blog setting
   become: yes
-  shell: nginx -s reload
-  when: nginx_setting.changed
+  template:
+    src: ../files/engineer_blog.conf
+    dest: /etc/nginx/conf.d/engineer_blog.conf
+  notify: reload nginx setting

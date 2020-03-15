@@ -1,3 +1,0 @@
-dependencies:
-  - { role: nginx }
-  - { role: wordpress, wp_name: engineer_blog }
