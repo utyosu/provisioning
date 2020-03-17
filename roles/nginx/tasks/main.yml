@@ -18,6 +18,13 @@
     dest: /etc/nginx/conf.d/blog.conf
   notify: reload nginx setting
 
+- name: add official setting
+  become: yes
+  template:
+    src: ../files/official.conf
+    dest: /etc/nginx/conf.d/official.conf
+  notify: reload nginx setting
+
 - name: add dashboard setting
   become: yes
   template:
