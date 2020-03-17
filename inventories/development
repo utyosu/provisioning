@@ -4,3 +4,5 @@ development-server
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3
 nginx_server_name=192.168.33.10
+nginx_server_name_engineer_blog=192.168.33.10
+nginx_server_name_discord_recruitment_bot=192.168.33.10
