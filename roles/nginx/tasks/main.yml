@@ -6,7 +6,7 @@
 
 - name: add discord-recruitment-bot setting
   become: yes
-  copy:
+  template:
     src: ../files/discord-recruitment-bot.conf
     dest: /etc/nginx/conf.d/discord-recruitment-bot.conf
   notify: reload nginx setting
