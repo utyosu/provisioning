@@ -7,6 +7,18 @@
       - php-mbstring
       - php-fpm
       - php-gd
+      - php-zip
+      - php-xml
+      - php-bcmath
+      - php-exif
+      - php-imagick
+      - php-mysqli
+      - php-opcache
+      - libfreetype6-dev
+      - libjpeg-dev
+      - libmagickwand-dev
+      - libpng-dev
+      - ghostscript
 
 - name: check database exists
   become: yes
