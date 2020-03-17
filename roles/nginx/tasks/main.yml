@@ -11,11 +11,11 @@
     dest: /etc/nginx/conf.d/discord-recruitment-bot.conf
   notify: reload nginx setting
 
-- name: add engineer_blog setting
+- name: add blog setting
   become: yes
   template:
-    src: ../files/engineer_blog.conf
-    dest: /etc/nginx/conf.d/engineer_blog.conf
+    src: ../files/blog.conf
+    dest: /etc/nginx/conf.d/blog.conf
   notify: reload nginx setting
 
 - name: add dashboard setting
