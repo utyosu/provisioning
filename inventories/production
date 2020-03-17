@@ -5,3 +5,4 @@ gce
 ansible_python_interpreter=/usr/bin/python3
 nginx_server_name_engineer_blog=memo.utyosu.local
 nginx_server_name_discord_recruitment_bot=recruitment.utyosu.local
+nginx_server_name_dashboard=dashboard.utyosu.local
