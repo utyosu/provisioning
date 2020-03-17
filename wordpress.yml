@@ -1,4 +1,4 @@
 - hosts: all
   roles:
     - { role: mysql, tags: [mysql] }
-    - { role: wordpress, tags: [wordpress], name: 'engineer_blog' }
+    - { role: wordpress, tags: [wordpress], wordpress_name: 'engineer_blog' }

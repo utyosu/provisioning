@@ -46,7 +46,7 @@
 - name: create directory
   become: yes
   file:
-    path: /var/www/html/{{ wp_name }}
+    path: /var/www/html/{{ wordpress_name }}
     state: directory
     mode: '0777'
   register: wordpress_directory
@@ -61,14 +61,14 @@
   become: yes
   unarchive:
     src: /tmp/latest-ja.tar.gz
-    dest: /var/www/html/{{ wp_name }}
+    dest: /var/www/html/{{ wordpress_name }}
     remote_src: yes
   when: wordpress_directory is changed
 
 - name: change permission
   become: yes
   file:
-    path: /var/www/html/{{ wp_name }}
+    path: /var/www/html/{{ wordpress_name }}
     state: directory
     group: www-data
     owner: www-data
