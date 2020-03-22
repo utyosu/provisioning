@@ -86,3 +86,16 @@
     owner: www-data
     recurse: yes
   when: wordpress_directory is changed
+
+- name: check wp command exists
+  stat:
+    path: /usr/local/bin/wp
+  register: wp_command_exists
+
+- name: install wp command
+  become: yes
+  get_url:
+    url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    dest: /usr/local/bin/wp
+    mode: '0775'
+  when: not wp_command_exists.stat.exists
