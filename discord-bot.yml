@@ -7,3 +7,4 @@
     - { role: mysql, tags: [mysql] }
     - { role: nginx, tags: [nginx] }
     - { role: envfile, tags: [envfile] }
+    - { role: restarter, tags: [restarter] }

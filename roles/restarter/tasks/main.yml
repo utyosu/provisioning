@@ -1,0 +1,23 @@
+- name: Copy restart script
+  become: yes
+  template:
+    src: ../files/restart_bot.sh
+    dest: /usr/local/bin/restart_bot.sh
+    mode: 0755
+
+- name: Set env SHELL to cron
+  cron:
+    name: SHELL
+    env: yes
+    job: /bin/bash
+
+- name: Set env PATH to cron
+  cron:
+    name: PATH
+    env: yes
+    job: /home/ops/.rbenv/shims:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+- name: Set bot restart job
+  cron:
+    name: "Restart bot if not found process"
+    job: /usr/local/bin/restart_bot.sh >> /tmp/bot_restart.log 2>&1
