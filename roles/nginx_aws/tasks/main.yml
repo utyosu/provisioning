@@ -1,0 +1,13 @@
+- name: install nginx
+  become: yes
+  shell: sudo amazon-linux-extras install nginx1 epel -y
+
+- name: add official setting
+  become: yes
+  template:
+    src: ../files/official.conf
+    dest: /etc/nginx/conf.d/official.conf
+  notify: reload nginx setting
+
+# ssl証明書の発行はこのあたりを見て設定する
+# https://www.kagoya.jp/howto/webhomepage/lets-encrypt/

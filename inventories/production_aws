@@ -1,0 +1,5 @@
+[all]
+aws
+
+[all:vars]
+nginx_server_name_official=is-official.utyosu.com
