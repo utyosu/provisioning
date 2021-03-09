@@ -1,0 +1,3 @@
+- name: reload nginx setting
+  become: yes
+  shell: nginx -s reload

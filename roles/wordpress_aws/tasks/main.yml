@@ -1,0 +1,89 @@
+- name: enable php packages
+  become: yes
+  shell: amazon-linux-extras enable php7.3
+
+- name: install required packages
+  become: yes
+  yum:
+    name:
+      - php
+      - php-mbstring
+      - php-fpm
+      - php-gd
+      - php-mysqlnd
+      - php-xmlrpc
+
+- name: relax restrictions post_max_size
+  become: yes
+  lineinfile:
+    path: /etc/php.ini
+    regexp: '^post_max_size ='
+    line: post_max_size = 500M
+  register: php_post_max_size
+
+- name: relax restrictions upload_max_filesize
+  become: yes
+  lineinfile:
+    path: /etc/php.ini
+    regexp: '^upload_max_filesize ='
+    line: upload_max_filesize = 500M
+  register: php_upload_max_filesize
+
+- name: restart php-fpm
+  become: yes
+  service:
+    name: php-fpm
+    state: restarted
+  when: php_post_max_size.changed or php_upload_max_filesize.changed
+
+- name: create directory
+  become: yes
+  file:
+    path: /var/www/html/{{ wordpress_name }}
+    state: directory
+    mode: '0777'
+  register: wordpress_directory
+
+- name: download wordpress
+  get_url:
+    url: https://ja.wordpress.org/latest-ja.tar.gz
+    dest: /tmp/latest-ja.tar.gz
+  when: wordpress_directory is changed
+
+- name: unarchive wordpress
+  become: yes
+  unarchive:
+    src: /tmp/latest-ja.tar.gz
+    dest: /tmp
+    remote_src: yes
+  when: wordpress_directory is changed
+
+- name: mv wordpress
+  become: yes
+  shell: mv /tmp/wordpress/* /var/www/html/{{ wordpress_name }}/
+  when: wordpress_directory is changed
+
+- name: change permission
+  become: yes
+  file:
+    path: /var/www/html/{{ wordpress_name }}
+    state: directory
+    mode: '0777'
+    recurse: yes
+
+- name: check wp command exists
+  stat:
+    path: /usr/local/bin/wp
+  register: wp_command_exists
+
+- name: install wp command
+  become: yes
+  get_url:
+    url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    dest: /usr/local/bin/wp
+    mode: '0775'
+  when: not wp_command_exists.stat.exists
+
+# wordpressで初期設定が完了したら
+# /var/www/html/official/wp-config.phpに以下を追記する
+# define('FS_METHOD','direct');
