@@ -27,8 +27,10 @@
     dest: /etc/supervisor/conf.d/rfe.conf
 
 - name: kill supervisord
+  become: yes
   shell: killall supervisord
   ignore_errors: yes
 
 - name: start supervisord
-  shell: supervisord
+  become: yes
+  shell: /usr/local/bin/supervisord
