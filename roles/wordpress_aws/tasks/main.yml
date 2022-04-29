@@ -87,3 +87,8 @@
 # wordpressで初期設定が完了したら
 # /var/www/html/official/wp-config.phpに以下を追記する
 # define('FS_METHOD','direct');
+
+# デフォルトだと php-fpm のプロセスが起動しすぎるので
+# /etc/php-fpm.d/www.conf の設定を以下の通り変更して固定数のプロセスを使うようにする
+# pm = dynamic -> static
+# pm.max_children = 50 -> 3
