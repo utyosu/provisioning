@@ -1,5 +1,5 @@
 - name: install required packages
-  become: yes
+  become: true
   apt:
     name:
       - php
@@ -21,19 +21,19 @@
       - ghostscript
 
 - name: check database exists
-  become: yes
+  become: true
   shell: mysql -e 'show databases;' | grep -e '^wordpress$'
   changed_when: no
-  ignore_errors: yes
+  ignore_errors: true
   register: check_database_exists
 
 - name: create database
-  become: yes
+  become: true
   shell: mysql -e 'CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8;'
   when: check_database_exists.rc != 0
 
 - name: relax restrictions post_max_size in fpm/php.ini
-  become: yes
+  become: true
   lineinfile:
     path: /etc/php/7.2/fpm/php.ini
     regexp: '^post_max_size ='
@@ -41,7 +41,7 @@
   register: php_fpm_post_max_size
 
 - name: relax restrictions upload_max_filesize in fpm/php.ini
-  become: yes
+  become: true
   lineinfile:
     path: /etc/php/7.2/fpm/php.ini
     regexp: '^upload_max_filesize ='
@@ -49,14 +49,14 @@
   register: php_fpm_upload_max_filesize
 
 - name: restart php-fpm
-  become: yes
+  become: true
   service:
     name: php7.2-fpm
     state: restarted
   when: php_fpm_post_max_size.changed or php_fpm_upload_max_filesize.changed
 
 - name: create directory
-  become: yes
+  become: true
   file:
     path: /var/www/html/{{ wordpress_name }}
     state: directory
@@ -70,21 +70,21 @@
   when: wordpress_directory is changed
 
 - name: unarchive wordpress
-  become: yes
+  become: true
   unarchive:
     src: /tmp/latest-ja.tar.gz
     dest: /var/www/html/{{ wordpress_name }}
-    remote_src: yes
+    remote_src: true
   when: wordpress_directory is changed
 
 - name: change permission
-  become: yes
+  become: true
   file:
     path: /var/www/html/{{ wordpress_name }}
     state: directory
     group: www-data
     owner: www-data
-    recurse: yes
+    recurse: true
   when: wordpress_directory is changed
 
 - name: check wp command exists
@@ -93,7 +93,7 @@
   register: wp_command_exists
 
 - name: install wp command
-  become: yes
+  become: true
   get_url:
     url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
     dest: /usr/local/bin/wp

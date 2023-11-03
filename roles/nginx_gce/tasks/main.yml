@@ -1,32 +1,32 @@
 - name: install nginx
-  become: yes
+  become: true
   apt:
     name:
       - nginx
 
 - name: add discord-recruitment-bot setting
-  become: yes
+  become: true
   template:
     src: ../files/discord-recruitment-bot.conf
     dest: /etc/nginx/conf.d/discord-recruitment-bot.conf
   notify: reload nginx setting
 
 - name: add blog setting
-  become: yes
+  become: true
   template:
     src: ../files/blog.conf
     dest: /etc/nginx/conf.d/blog.conf
   notify: reload nginx setting
 
 - name: add official setting
-  become: yes
+  become: true
   template:
     src: ../files/official.conf
     dest: /etc/nginx/conf.d/official.conf
   notify: reload nginx setting
 
 - name: add dashboard setting
-  become: yes
+  become: true
   template:
     src: ../files/dashboard.conf
     dest: /etc/nginx/conf.d/dashboard.conf

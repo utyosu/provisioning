@@ -1,16 +1,16 @@
 - name: install mysql-server
-  become: yes
+  become: true
   apt:
     name:
       - mysql-server
 
 - name: show users in mysql
-  become: yes
+  become: true
   shell: mysql -e 'SELECT User FROM mysql.user;'
   register: mysql_users
   changed_when: no
 
 - name: setup mysql server
-  become: yes
+  become: true
   shell: mysql -e 'create user ops; grant all on *.* to ops;'
   when: '"ops" not in mysql_users.stdout'

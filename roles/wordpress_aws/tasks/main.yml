@@ -1,9 +1,9 @@
 - name: enable php packages
-  become: yes
+  become: true
   shell: amazon-linux-extras enable php7.3
 
 - name: install required packages
-  become: yes
+  become: true
   yum:
     name:
       - php
@@ -14,7 +14,7 @@
       - php-xmlrpc
 
 - name: relax restrictions post_max_size
-  become: yes
+  become: true
   lineinfile:
     path: /etc/php.ini
     regexp: '^post_max_size ='
@@ -22,7 +22,7 @@
   register: php_post_max_size
 
 - name: relax restrictions upload_max_filesize
-  become: yes
+  become: true
   lineinfile:
     path: /etc/php.ini
     regexp: '^upload_max_filesize ='
@@ -30,14 +30,14 @@
   register: php_upload_max_filesize
 
 - name: restart php-fpm
-  become: yes
+  become: true
   service:
     name: php-fpm
     state: restarted
   when: php_post_max_size.changed or php_upload_max_filesize.changed
 
 - name: create directory
-  become: yes
+  become: true
   file:
     path: /var/www/html/{{ wordpress_name }}
     state: directory
@@ -51,25 +51,25 @@
   when: wordpress_directory is changed
 
 - name: unarchive wordpress
-  become: yes
+  become: true
   unarchive:
     src: /tmp/latest-ja.tar.gz
     dest: /tmp
-    remote_src: yes
+    remote_src: true
   when: wordpress_directory is changed
 
 - name: mv wordpress
-  become: yes
+  become: true
   shell: mv /tmp/wordpress/* /var/www/html/{{ wordpress_name }}/
   when: wordpress_directory is changed
 
 - name: change permission
-  become: yes
+  become: true
   file:
     path: /var/www/html/{{ wordpress_name }}
     state: directory
     mode: '0777'
-    recurse: yes
+    recurse: true
 
 - name: check wp command exists
   stat:
@@ -77,7 +77,7 @@
   register: wp_command_exists
 
 - name: install wp command
-  become: yes
+  become: true
   get_url:
     url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
     dest: /usr/local/bin/wp
