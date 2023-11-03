@@ -5,6 +5,6 @@
     - { role: libsodium, tags: [libsodium] }
     - { role: rbenv, tags: [rbenv] }
     - { role: mysql, tags: [mysql] }
-    - { role: nginx, tags: [nginx] }
+    - { role: nginx_gce, tags: [nginx] }
     - { role: envfile, tags: [envfile] }
     - { role: restarter, tags: [restarter] }
