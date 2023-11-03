@@ -1,36 +1,36 @@
 - name: install python3
-  become: yes
+  become: true
   yum:
     name:
       - python3
 
 - name: install supervisor
-  become: yes
+  become: true
   shell: pip3 install supervisor
 
 - name: add supervisord.conf
-  become: yes
+  become: true
   template:
     src: ../files/supervisord.conf
     dest: /etc/supervisor/supervisord.conf
 
 - name: add settings robotyosu.conf
-  become: yes
+  become: true
   template:
     src: ../files/conf.d/robotyosu.conf
     dest: /etc/supervisor/conf.d/robotyosu.conf
 
 - name: add setting rfe.conf
-  become: yes
+  become: true
   template:
     src: ../files/conf.d/rfe.conf
     dest: /etc/supervisor/conf.d/rfe.conf
 
 - name: kill supervisord
-  become: yes
+  become: true
   shell: killall supervisord
-  ignore_errors: yes
+  ignore_errors: true
 
 - name: start supervisord
-  become: yes
+  become: true
   shell: /usr/local/bin/supervisord

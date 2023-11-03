@@ -4,7 +4,7 @@
   register: stackdriver_agent
 
 - name: install required packagers
-  become: yes
+  become: true
   apt:
     name:
       - curl
@@ -17,6 +17,6 @@
   when: not stackdriver_agent.stat.exists
 
 - name: install
-  become: yes
+  become: true
   shell: bash /tmp/install-monitoring-agent.sh
   when: not stackdriver_agent.stat.exists

@@ -1,5 +1,5 @@
 - name: install libraries for rbenv
-  become: yes
+  become: true
   apt:
     name:
       - rbenv
@@ -12,7 +12,7 @@
 - name: check ruby version
   shell: ruby --version | grep {{ ruby_version }}
   register: check_ruby
-  ignore_errors: yes
+  ignore_errors: true
 
 - name: clone ruby-build
   git:
@@ -36,10 +36,10 @@
   lineinfile:
     path: ~/.ansible_preload
     line: eval "$(rbenv init -)"
-    create: yes
+    create: true
 
 - name: gem update
-  become: yes
+  become: true
   shell: gem update --system
 
 - name: install bundler

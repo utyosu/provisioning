@@ -1,9 +1,9 @@
 - name: install nginx
-  become: yes
+  become: true
   shell: sudo amazon-linux-extras install nginx1 epel -y
 
 - name: add official setting
-  become: yes
+  become: true
   template:
     src: ../files/official.conf
     dest: /etc/nginx/conf.d/official.conf
